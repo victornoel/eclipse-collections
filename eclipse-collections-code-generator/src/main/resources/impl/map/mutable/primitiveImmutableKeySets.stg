@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.NoSuchElementException;
 <if(!primitive.bytePrimitive)>import org.eclipse.collections.impl.SpreadFunctions;<endif>
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
 import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
@@ -304,6 +305,14 @@ class <className> extends AbstractImmutable<name>Set implements Serializable
     public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        <forEachKey("injectInto")>
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
+    {
+        double result = injectedValue;
         <forEachKey("injectInto")>
         return result;
     }

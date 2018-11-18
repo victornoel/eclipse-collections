@@ -22,6 +22,7 @@ import org.eclipse.collections.api.Lazy<name>Iterable;
 import org.eclipse.collections.api.<name>Iterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>IntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
@@ -206,6 +207,12 @@ public abstract class Abstract<name>Stack implements <name>Stack
     public \<V> V injectInto(V injectedValue, Object<name>ToObjectFunction\<? super V, ? extends V> function)
     {
         return this.getDelegate().toReversed().injectInto(injectedValue, function);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
+    {
+        return this.getDelegate().toReversed().injectIntoDouble(injectedValue, function);
     }
 
     @Override

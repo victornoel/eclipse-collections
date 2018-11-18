@@ -18,6 +18,7 @@ import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.api.bag.primitive.MutableBooleanBag;
 import org.eclipse.collections.api.block.function.primitive.BooleanToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BooleanPredicate;
 import org.eclipse.collections.api.block.procedure.primitive.BooleanProcedure;
@@ -165,6 +166,34 @@ public abstract class AbstractMutableBooleanValuesMap extends AbstractBooleanIte
     public <V> V injectInto(V injectedValue, ObjectBooleanToObjectFunction<? super V, ? extends V> function)
     {
         V result = injectedValue;
+
+        if (this.getSentinelValues() != null)
+        {
+            if (this.getSentinelValues().containsZeroKey)
+            {
+                result = function.valueOf(result, this.getSentinelValues().zeroValue);
+            }
+            if (this.getSentinelValues().containsOneKey)
+            {
+                result = function.valueOf(result, this.getSentinelValues().oneValue);
+            }
+        }
+
+        for (int i = 0; i < this.getTableSize(); i++)
+        {
+            if (this.isNonSentinelAtIndex(i))
+            {
+                result = function.valueOf(result, this.getValueAtIndex(i));
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+    {
+        double result = injectedValue;
 
         if (this.getSentinelValues() != null)
         {
@@ -519,6 +548,12 @@ public abstract class AbstractMutableBooleanValuesMap extends AbstractBooleanIte
         public <T> T injectInto(T injectedValue, ObjectBooleanToObjectFunction<? super T, ? extends T> function)
         {
             return AbstractMutableBooleanValuesMap.this.injectInto(injectedValue, function);
+        }
+
+        @Override
+        public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+        {
+            return AbstractMutableBooleanValuesMap.this.injectIntoDouble(injectedValue, function);
         }
 
         @Override

@@ -48,6 +48,7 @@ import org.eclipse.collections.api.block.function.primitive.<name>ToFloatFunctio
 import org.eclipse.collections.api.block.function.primitive.<name>ToIntFunction;
 import org.eclipse.collections.api.block.function.primitive.<name>ToLongFunction;
 import org.eclipse.collections.api.block.function.primitive.<name>ToShortFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
 import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
@@ -236,6 +237,12 @@ public abstract class AbstractLazy<name>Iterable implements Lazy<name>Iterable
     public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
     {
         return <name>IterableIterate.injectInto(this, injectedValue, function);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
+    {
+        return <name>IterableIterate.injectIntoDouble(this, injectedValue, function);
     }
 
     @Override

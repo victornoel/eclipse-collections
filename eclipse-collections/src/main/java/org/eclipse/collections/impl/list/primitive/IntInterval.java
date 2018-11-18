@@ -20,6 +20,7 @@ import org.eclipse.collections.api.IntIterable;
 import org.eclipse.collections.api.LazyIntIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableIntBag;
+import org.eclipse.collections.api.block.function.primitive.DoubleIntToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.IntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectIntIntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectIntToObjectFunction;
@@ -612,6 +613,27 @@ public final class IntInterval
     public <T> T injectInto(T injectedValue, ObjectIntToObjectFunction<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        if (this.from <= this.to)
+        {
+            for (int i = this.from; i <= this.to; i += this.step)
+            {
+                result = function.valueOf(result, i);
+            }
+        }
+        else
+        {
+            for (int i = this.from; i >= this.to; i += this.step)
+            {
+                result = function.valueOf(result, i);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleIntToDoubleFunction function)
+    {
+        double result = injectedValue;
         if (this.from <= this.to)
         {
             for (int i = this.from; i <= this.to; i += this.step)

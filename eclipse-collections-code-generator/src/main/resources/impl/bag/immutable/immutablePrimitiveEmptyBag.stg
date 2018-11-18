@@ -26,6 +26,7 @@ import org.eclipse.collections.api.bag.primitive.Immutable<name>Bag;
 import org.eclipse.collections.api.bag.primitive.<name>Bag;
 import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 <if(!primitive.intPrimitive)>import org.eclipse.collections.api.block.predicate.primitive.IntPredicate;<endif>
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
@@ -243,6 +244,12 @@ final class Immutable<name>EmptyBag implements Immutable<name>Bag, Serializable
 
     @Override
     public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
+    {
+        return injectedValue;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
     {
         return injectedValue;
     }

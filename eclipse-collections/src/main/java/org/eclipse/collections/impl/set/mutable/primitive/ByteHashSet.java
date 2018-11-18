@@ -23,6 +23,8 @@ import org.eclipse.collections.api.LazyByteIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableByteBag;
 import org.eclipse.collections.api.block.function.primitive.ByteToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleByteToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectByteToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BytePredicate;
 import org.eclipse.collections.api.block.procedure.primitive.ByteProcedure;
@@ -972,6 +974,21 @@ public final class ByteHashSet implements MutableByteSet, Externalizable
     }
 
     @Override
+    public double injectIntoDouble(double injectedValue, DoubleByteToDoubleFunction function)
+    {
+        double result = injectedValue;
+
+        ByteIterator iterator = this.byteIterator();
+
+        while (iterator.hasNext())
+        {
+            result = function.valueOf(result, iterator.next());
+        }
+
+        return result;
+    }
+
+    @Override
     public RichIterable<ByteIterable> chunk(int size)
     {
         if (size <= 0)
@@ -1534,6 +1551,21 @@ public final class ByteHashSet implements MutableByteSet, Externalizable
         public <T> T injectInto(T injectedValue, ObjectByteToObjectFunction<? super T, ? extends T> function)
         {
             T result = injectedValue;
+
+            ByteIterator iterator = this.byteIterator();
+
+            while (iterator.hasNext())
+            {
+                result = function.valueOf(result, iterator.next());
+            }
+
+            return result;
+        }
+
+        @Override
+        public double injectIntoDouble(double injectedValue, DoubleByteToDoubleFunction function)
+        {
+            double result = injectedValue;
 
             ByteIterator iterator = this.byteIterator();
 

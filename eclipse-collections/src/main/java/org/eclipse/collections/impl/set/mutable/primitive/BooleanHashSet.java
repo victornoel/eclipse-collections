@@ -21,6 +21,7 @@ import org.eclipse.collections.api.LazyBooleanIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableBooleanBag;
 import org.eclipse.collections.api.block.function.primitive.BooleanToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BooleanPredicate;
 import org.eclipse.collections.api.block.procedure.primitive.BooleanProcedure;
@@ -400,6 +401,29 @@ public class BooleanHashSet implements MutableBooleanSet, Externalizable
     public <T> T injectInto(T injectedValue, ObjectBooleanToObjectFunction<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        switch (this.state)
+        {
+            case 0:
+                return result;
+            case 1:
+                result = function.valueOf(result, false);
+                return result;
+            case 2:
+                result = function.valueOf(result, true);
+                return result;
+            case 3:
+                result = function.valueOf(result, false);
+                result = function.valueOf(result, true);
+                return result;
+            default:
+                throw new AssertionError("Invalid state");
+        }
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+    {
+        double result = injectedValue;
         switch (this.state)
         {
             case 0:

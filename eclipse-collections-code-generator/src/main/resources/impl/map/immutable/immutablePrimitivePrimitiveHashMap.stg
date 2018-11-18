@@ -37,6 +37,7 @@ import org.eclipse.collections.api.bag.primitive.Mutable<name2>Bag;
 import org.eclipse.collections.api.bag.primitive.Immutable<name2>Bag;
 import org.eclipse.collections.api.block.function.primitive.<name2>ToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name2>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name2>ToDoubleFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name1><name2>Predicate;
 import org.eclipse.collections.api.block.predicate.primitive.<name2>Predicate;
 import org.eclipse.collections.api.block.procedure.primitive.<name1><name2>Procedure;
@@ -173,6 +174,12 @@ final class Immutable<name1><name2>HashMap implements Immutable<name1><name2>Map
     public \<T> T injectInto(T injectedValue, Object<name2>ToObjectFunction\<? super T, ? extends T> function)
     {
         return this.delegate.injectInto(injectedValue, function);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name2>ToDoubleFunction function)
+    {
+        return this.delegate.injectIntoDouble(injectedValue, function);
     }
 
     @Override

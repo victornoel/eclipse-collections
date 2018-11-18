@@ -29,6 +29,7 @@ import org.eclipse.collections.api.block.function.primitive.<name>Function;
 import org.eclipse.collections.api.block.function.primitive.<name>Function0;
 import org.eclipse.collections.api.block.function.primitive.<name>To<name>Function;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
 import org.eclipse.collections.api.block.predicate.primitive.Object<name>Predicate;
@@ -484,6 +485,12 @@ public class UnmodifiableObject<name>Map\<K>
     public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
     {
         return this.map.injectInto(injectedValue, function);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
+    {
+        return this.map.injectIntoDouble(injectedValue, function);
     }
 
     @Override

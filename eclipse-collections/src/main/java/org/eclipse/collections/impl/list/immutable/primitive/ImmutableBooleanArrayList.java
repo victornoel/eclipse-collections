@@ -23,6 +23,7 @@ import org.eclipse.collections.api.LazyBooleanIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableBooleanBag;
 import org.eclipse.collections.api.block.function.primitive.BooleanToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanIntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BooleanPredicate;
@@ -509,6 +510,17 @@ final class ImmutableBooleanArrayList
     public <T> T injectInto(T injectedValue, ObjectBooleanToObjectFunction<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        for (int i = 0; i < this.size; i++)
+        {
+            result = function.valueOf(result, this.items.get(i));
+        }
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+    {
+        double result = injectedValue;
         for (int i = 0; i < this.size; i++)
         {
             result = function.valueOf(result, this.items.get(i));

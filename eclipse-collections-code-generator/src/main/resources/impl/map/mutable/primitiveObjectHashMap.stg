@@ -63,6 +63,7 @@ import org.eclipse.collections.api.block.function.Function;
 import org.eclipse.collections.api.block.function.Function0;
 import org.eclipse.collections.api.block.function.Function2;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.BooleanFunction;
 import org.eclipse.collections.api.block.function.primitive.ByteFunction;
@@ -3092,6 +3093,31 @@ public class <name>ObjectHashMap\<V> implements Mutable<name>ObjectMap\<V>, Exte
         public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
         {
             T result = injectedValue;
+            if (<name>ObjectHashMap.this.sentinelValues != null)
+            {
+                if (<name>ObjectHashMap.this.sentinelValues.containsZeroKey)
+                {
+                    result = function.valueOf(result, EMPTY_KEY);
+                }
+                if (<name>ObjectHashMap.this.sentinelValues.containsOneKey)
+                {
+                    result = function.valueOf(result, REMOVED_KEY);
+                }
+            }
+            for (<type> key : <name>ObjectHashMap.this.keys)
+            {
+                if (isNonSentinel(key))
+                {
+                    result = function.valueOf(result, key);
+                }
+            }
+            return result;
+        }
+
+        @Override
+        public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
+        {
+            double result = injectedValue;
             if (<name>ObjectHashMap.this.sentinelValues != null)
             {
                 if (<name>ObjectHashMap.this.sentinelValues.containsZeroKey)

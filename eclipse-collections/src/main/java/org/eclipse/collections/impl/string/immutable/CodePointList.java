@@ -18,6 +18,7 @@ import org.eclipse.collections.api.IntIterable;
 import org.eclipse.collections.api.LazyIntIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableIntBag;
+import org.eclipse.collections.api.block.function.primitive.DoubleIntToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.IntToIntFunction;
 import org.eclipse.collections.api.block.function.primitive.IntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectIntIntToObjectFunction;
@@ -376,6 +377,12 @@ public class CodePointList extends AbstractIntIterable implements CharSequence, 
     public <T> T injectInto(T injectedValue, ObjectIntToObjectFunction<? super T, ? extends T> function)
     {
         return this.codePoints.injectInto(injectedValue, function);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleIntToDoubleFunction function)
+    {
+        return this.codePoints.injectIntoDouble(injectedValue, function);
     }
 
     @Override

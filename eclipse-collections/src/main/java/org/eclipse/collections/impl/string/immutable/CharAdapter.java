@@ -21,6 +21,7 @@ import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableCharBag;
 import org.eclipse.collections.api.block.function.primitive.CharToCharFunction;
 import org.eclipse.collections.api.block.function.primitive.CharToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleCharToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectCharIntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectCharToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.CharPredicate;
@@ -414,6 +415,18 @@ public class CharAdapter
     public <T> T injectInto(T injectedValue, ObjectCharToObjectFunction<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        int size = this.size();
+        for (int i = 0; i < size; i++)
+        {
+            result = function.valueOf(result, this.get(i));
+        }
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleCharToDoubleFunction function)
+    {
+        double result = injectedValue;
         int size = this.size();
         for (int i = 0; i < size; i++)
         {

@@ -21,6 +21,7 @@ import org.eclipse.collections.api.LazyBooleanIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableBooleanBag;
 import org.eclipse.collections.api.block.function.primitive.BooleanToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanIntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BooleanPredicate;
@@ -300,6 +301,12 @@ public final class BooleanArrayStack implements MutableBooleanStack, Externaliza
     public <V> V injectInto(V injectedValue, ObjectBooleanToObjectFunction<? super V, ? extends V> function)
     {
         return this.delegate.asReversed().injectInto(injectedValue, function);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+    {
+        return this.delegate.asReversed().injectIntoDouble(injectedValue, function);
     }
 
     @Override

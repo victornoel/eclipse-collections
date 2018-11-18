@@ -26,6 +26,7 @@ import org.eclipse.collections.api.block.function.primitive.<name>ToDoubleFuncti
 import org.eclipse.collections.api.block.function.primitive.<name>ToFloatFunction;
 import org.eclipse.collections.api.block.function.primitive.<name>ToIntFunction;
 import org.eclipse.collections.api.block.function.primitive.<name>ToLongFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
@@ -329,6 +330,8 @@ public interface <name>Iterable extends PrimitiveIterable
     Lazy<name>Iterable asLazy();
 
     \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function);
+
+    double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function);
 
     /**
      * Partitions elements in fixed size chunks.

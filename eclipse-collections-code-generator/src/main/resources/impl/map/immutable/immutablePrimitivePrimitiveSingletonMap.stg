@@ -32,6 +32,7 @@ import org.eclipse.collections.api.bag.ImmutableBag;
 import org.eclipse.collections.api.bag.primitive.Immutable<name2>Bag;
 import org.eclipse.collections.api.bag.primitive.Mutable<name2>Bag;
 import org.eclipse.collections.api.block.function.primitive.<name2>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name2>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name2>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name2>Predicate;
 import org.eclipse.collections.api.block.predicate.primitive.<name1><name2>Predicate;
@@ -171,6 +172,12 @@ final class Immutable<name1><name2>SingletonMap implements Immutable<name1><name
 
     @Override
     public \<T> T injectInto(T injectedValue, Object<name2>ToObjectFunction\<? super T, ? extends T> function)
+    {
+        return function.valueOf(injectedValue, this.value1);
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name2>ToDoubleFunction function)
     {
         return function.valueOf(injectedValue, this.value1);
     }

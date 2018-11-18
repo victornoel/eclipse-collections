@@ -31,6 +31,7 @@ import org.eclipse.collections.api.block.function.primitive.BooleanFunction;
 import org.eclipse.collections.api.block.function.primitive.BooleanFunction0;
 import org.eclipse.collections.api.block.function.primitive.BooleanToBooleanFunction;
 import org.eclipse.collections.api.block.function.primitive.BooleanToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BooleanPredicate;
 import org.eclipse.collections.api.block.predicate.primitive.ObjectBooleanPredicate;
@@ -576,6 +577,22 @@ public class ObjectBooleanHashMap<K> implements MutableObjectBooleanMap<K>, Exte
     public <V> V injectInto(V injectedValue, ObjectBooleanToObjectFunction<? super V, ? extends V> function)
     {
         V result = injectedValue;
+
+        for (int i = 0; i < this.keys.length; i++)
+        {
+            if (ObjectBooleanHashMap.isNonSentinel(this.keys[i]))
+            {
+                result = function.valueOf(result, this.values.get(i));
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+    {
+        double result = injectedValue;
 
         for (int i = 0; i < this.keys.length; i++)
         {
@@ -1598,6 +1615,12 @@ public class ObjectBooleanHashMap<K> implements MutableObjectBooleanMap<K>, Exte
         public <T> T injectInto(T injectedValue, ObjectBooleanToObjectFunction<? super T, ? extends T> function)
         {
             return ObjectBooleanHashMap.this.injectInto(injectedValue, function);
+        }
+
+        @Override
+        public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function)
+        {
+            return ObjectBooleanHashMap.this.injectIntoDouble(injectedValue, function);
         }
 
         @Override

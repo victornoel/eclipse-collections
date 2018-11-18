@@ -19,6 +19,7 @@ import org.eclipse.collections.api.IntIterable;
 import org.eclipse.collections.api.LazyIntIterable;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.primitive.MutableIntBag;
+import org.eclipse.collections.api.block.function.primitive.DoubleIntToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.IntToIntFunction;
 import org.eclipse.collections.api.block.function.primitive.IntToObjectFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectIntIntToObjectFunction;
@@ -533,6 +534,19 @@ public class CodePointAdapter
     public <T> T injectInto(T injectedValue, ObjectIntToObjectFunction<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        for (int i = 0; i < this.adapted.length(); )
+        {
+            int codePoint = this.adapted.codePointAt(i);
+            result = function.valueOf(result, codePoint);
+            i += Character.charCount(codePoint);
+        }
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleIntToDoubleFunction function)
+    {
+        double result = injectedValue;
         for (int i = 0; i < this.adapted.length(); )
         {
             int codePoint = this.adapted.codePointAt(i);

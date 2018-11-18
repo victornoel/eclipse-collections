@@ -23,6 +23,7 @@ import org.eclipse.collections.api.<name>Iterable;
 import org.eclipse.collections.api.Lazy<name>Iterable;
 import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
 import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
@@ -492,6 +493,15 @@ public abstract class AbstractSynchronized<name>Collection
         synchronized (this.lock)
         {
             return this.collection.injectInto(injectedValue, function);
+        }
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
+    {
+        synchronized (this.lock)
+        {
+            return this.collection.injectIntoDouble(injectedValue, function);
         }
     }
 

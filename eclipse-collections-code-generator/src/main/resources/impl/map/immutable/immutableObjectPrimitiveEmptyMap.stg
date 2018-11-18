@@ -27,6 +27,7 @@ import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.<name>Iterable;
 import org.eclipse.collections.api.bag.primitive.Mutable<name>Bag;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.Object<name>Predicate;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
@@ -290,6 +291,12 @@ final class ImmutableObject<name>EmptyMap\<K> implements ImmutableObject<name>Ma
 
     @Override
     public \<T> T injectInto(T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
+    {
+        return injectedValue;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, Double<name>ToDoubleFunction function)
     {
         return injectedValue;
     }

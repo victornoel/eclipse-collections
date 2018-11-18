@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import org.eclipse.collections.api.<name>Iterable;
 import org.eclipse.collections.api.block.function.primitive.<name>ToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.Double<name>ToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.Object<name>ToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.<name>Predicate;
 import org.eclipse.collections.api.block.procedure.primitive.<name>Procedure;
@@ -129,6 +130,11 @@ public final class <name>IterableIterate
     public static \<T> T injectInto(<name>Iterable iterable, T injectedValue, Object<name>ToObjectFunction\<? super T, ? extends T> function)
     {
         return <name>IteratorIterate.injectInto(iterable.<type>Iterator(), injectedValue, function);
+    }
+
+    public static double injectIntoDouble(<name>Iterable iterable, double injectedValue, Double<name>ToDoubleFunction function)
+    {
+        return <name>IteratorIterate.injectIntoDouble(iterable.<type>Iterator(), injectedValue, function);
     }
 
     private static \<T> String stringValueOfItem(<name>Iterable iterable, T item)

@@ -24,6 +24,7 @@ import org.eclipse.collections.api.bag.primitive.BooleanBag;
 import org.eclipse.collections.api.bag.primitive.ImmutableBooleanBag;
 import org.eclipse.collections.api.bag.primitive.MutableBooleanBag;
 import org.eclipse.collections.api.block.function.primitive.BooleanToObjectFunction;
+import org.eclipse.collections.api.block.function.primitive.DoubleBooleanToDoubleFunction;
 import org.eclipse.collections.api.block.function.primitive.ObjectBooleanToObjectFunction;
 import org.eclipse.collections.api.block.predicate.primitive.BooleanPredicate;
 import org.eclipse.collections.api.block.predicate.primitive.IntPredicate;
@@ -605,6 +606,17 @@ public final class BooleanHashBag implements MutableBooleanBag, Externalizable
     public <T> T injectInto(T injectedValue, ObjectBooleanToObjectFunction<? super T, ? extends T> function)
     {
         T result = injectedValue;
+        BooleanIterator it = this.booleanIterator();
+        while (it.hasNext())
+        {
+            result = function.valueOf(result, it.next());
+        }
+        return result;
+    }
+
+    @Override
+    public double injectIntoDouble(double injectedValue, DoubleBooleanToDoubleFunction function) {
+        double result = injectedValue;
         BooleanIterator it = this.booleanIterator();
         while (it.hasNext())
         {
